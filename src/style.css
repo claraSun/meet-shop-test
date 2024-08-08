@@ -34,6 +34,7 @@ body {
 .component {
   margin-bottom: 10px;
   padding: 10px;
+  
 }
 
 .editor-panel {
@@ -66,4 +67,15 @@ body {
 
 .carousel img {
   margin-right: 10px;
+}
+
+.del-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
 }

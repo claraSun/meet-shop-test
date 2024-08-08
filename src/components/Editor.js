@@ -69,6 +69,10 @@ const Editor = () => {
     setSelectedComponent(null);
   };
 
+  const handleDelete = (id) => {
+    setComponents((prev) => prev.filter((comp) => comp.id !== id));
+  };
+
   const handleTextChange = (content) => {
     setEditContent(content);
   };
@@ -105,24 +109,31 @@ const Editor = () => {
         <div
           key={component.id}
           className="component"
-          onClick={() => handleComponentClick(component)}
-          style={{ cursor: 'pointer', width: component.width, height: component.height }}
+          style={{ position: 'relative', cursor: 'pointer', width: component.width, height: component.height }}
         >
-          {component.type === 'image' ? (
-            <img src={component.url} alt="" width={component.width} height={component.height} />
-          ) : component.type === 'text' ? (
-            <div dangerouslySetInnerHTML={{ __html: component.content }} />
-          ) : component.type === 'carousel' ? (
-            <div style={{ width: component.width, height: component.height }}>
-              <Slider {...sliderSettings}>
-                {component.images.map((url, index) => (
-                  <div key={index}>
-                    <img src={url} alt="" style={{ width: '100%', height: 'auto' }} />
-                  </div>
-                ))}
-              </Slider>
-            </div>
-          ) : null}
+          <button
+            onClick={() => handleDelete(component.id)}
+            className='del-btn'
+          >
+            X
+          </button>
+          <div onClick={() => handleComponentClick(component)}>
+            {component.type === 'image' ? (
+              <img src={component.url} alt="" width={component.width} height={component.height} />
+            ) : component.type === 'text' ? (
+              <div dangerouslySetInnerHTML={{ __html: component.content }} />
+            ) : component.type === 'carousel' ? (
+              <div style={{ width: component.width, height: component.height }}>
+                <Slider {...sliderSettings}>
+                  {component.images.map((url, index) => (
+                    <div key={index}>
+                      <img src={url} alt="" style={{ width: '100%', height: 'auto' }} />
+                    </div>
+                  ))}
+                </Slider>
+              </div>
+            ) : null}
+          </div>
         </div>
       ))}
       {selectedComponent && (
